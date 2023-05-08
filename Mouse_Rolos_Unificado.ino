@@ -1,19 +1,5 @@
 /**
- *  *** INFORMAÇÕES:
- *  Nessa versão o botão scroll com um clique, fixa para funcionamento do 
- * mouse wheel (rodinha do mouse). Clicado novamente volta ao funcionamento
- * normal do mouse
- * 
- *  *** EM TESTE
- *  Ao inves de usar uma variavel e delay para fazer o Debouncing usei um while.
- * apenas para testes, é bloqueante mas funciona bem. 
- * 
- *  *** OBSERVAÇÃO
- *  Tive que mudar os pinos do cilindro vertical para 9 (clk) e 10 (dt) 
- * porque os originais do código (16 e 10) não funcionaram na placa de testes 
- * 
- * 
- * ESTA VERSÃO TRABALHA BEM COM SENSORES DE 3 E 5 PINOS. 
+  Versão de para testes
  */
  
 
