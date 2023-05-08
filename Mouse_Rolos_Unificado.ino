@@ -1,10 +1,6 @@
 /**
-  Versão de para testes
+  Versão de para testes. 08/05/2023
  */
- 
-
-
-
 
 #include <Mouse.h>
 #define MOVIMENTO 10
