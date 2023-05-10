@@ -47,13 +47,20 @@ int ultimoY = 0;
 int atualX = 0;
 int atualY = 0;
 
+// flags
 bool fixScroll;
 bool changeRange;
 
-int range = 2;  // multiplicador do movimento do mouse em X e Y, quanto maior o numero mais rapido fica o mouse
+// multiplicador do movimento do mouse em X e Y, quanto maior o numero mais rapido fica o mouse
+int range = 2;  
+
+// flags para controle 
 boolean variavel = 0, variavel2 = 1, variavel3 = 1, variavel4 = 1, variavel5 = 1, variavel6 = 1, variavel20 = 0, variavel21 = 0;
+
 int d = 0;
+
 unsigned long espaco = 0, a = 0;
+
 float  t = 0.01;
 
 void setup() 
@@ -73,7 +80,6 @@ void setup()
 
   lastStateCLK1 = digitalRead(CLK1);
   lastStateCLK2 = digitalRead(CLK2);
-  
   lastStateCLK3 = digitalRead(CLK3);
   
   ultimoX = encoder2();
@@ -82,11 +88,11 @@ void setup()
   fixScroll= false;
   changeRange =false;
 
-  delay(1000);
   Mouse.begin();
 }
 
-void loop() {
+void loop() 
+{
 
   if (digitalRead(changeRangeBtn)==LOW)
   {
@@ -107,92 +113,122 @@ void loop() {
   else
     range = 1;
 
-  //Serial.println(range);
   
   movimentoMouse();
     
-    //se o botao esquerdo ? apertado
-  if (digitalRead(mouseButton) == LOW) {
-    if (variavel2 == 1) {
-      delay(DEBOUNCING);
-      if (digitalRead(mouseButton) == LOW) {
-        Mouse.press(MOUSE_LEFT);
-        variavel2 = 0;
-      }
-    }
-  } else {
-    variavel2 = 1;
-  }
+    //se o botao esquerdo for  apertado
+    // input com pullup
 
-  // se o botao direito ? apertado
-  if (digitalRead(rightmouseButton) == LOW) {
-    if (variavel3 == 1) {
-      delay(DEBOUNCING);
-      if (digitalRead(rightmouseButton) == LOW) {
-        Mouse.press(MOUSE_RIGHT);
-        variavel3 = 0;
-      }
-    }
-  } else {
-    Mouse.release(MOUSE_RIGHT);
-    variavel3 = 1;
-  }
-
-  //se o botao de clique duplo ? apertado
-  if (digitalRead(doubleleft) == LOW) {
-    if (variavel4 == 1) {
-      delay(DEBOUNCING);
-      if (digitalRead(doubleleft) == LOW) {
-        // muda o estado l?gico do bot?o
-        if (!Mouse.isPressed(MOUSE_LEFT)) {
-          Mouse.click(MOUSE_LEFT);
-          delay(200);
-          Mouse.click(MOUSE_LEFT);
-          delay(500);
-          variavel4 = 0;
+    if (digitalRead(mouseButton) == LOW) 
+    {
+      if (variavel2 == 1) 
+      {
+        delay(DEBOUNCING);
+        if (digitalRead(mouseButton) == LOW) 
+        {
+          Mouse.press(MOUSE_LEFT);
+          variavel2 = 0;
         }
       }
+    } 
+    else 
+    {
+      variavel2 = 1;
     }
-  } else {
-    variavel4 = 1;
+
+    // se o botao direito for apertado
+    if (digitalRead(rightmouseButton) == LOW) 
+    {
+      if (variavel3 == 1) 
+      {
+        delay(DEBOUNCING);
+        if (digitalRead(rightmouseButton) == LOW) 
+        {
+          Mouse.press(MOUSE_RIGHT);
+          variavel3 = 0;
+        }
+      }
+    } 
+    else 
+    {
+      Mouse.release(MOUSE_RIGHT);
+      variavel3 = 1;
+    }
+
+  //se o botao de clique duplo for apertado
+  if (digitalRead(doubleleft) == LOW) 
+  {
+    if (variavel4 == 1) 
+    {
+      delay(DEBOUNCING);
+        if (digitalRead(doubleleft) == LOW) 
+        {
+          // muda o estado l?gico do bot?o
+          if (!Mouse.isPressed(MOUSE_LEFT)) 
+          {
+            Mouse.click(MOUSE_LEFT);
+            delay(200);
+            Mouse.click(MOUSE_LEFT);
+            delay(500);
+            variavel4 = 0;
+          }
+        }
+    }
+  } 
+  else 
+  {
+      variavel4 = 1;
   }
   //se o botao de clique longo ? apertado
-  if (digitalRead(leftLong) == LOW) {
+  if (digitalRead(leftLong) == LOW) 
+  {
     delay(DEBOUNCING);
-    if (digitalRead(leftLong) == LOW && variavel == 1) {
+    if (digitalRead(leftLong) == LOW && variavel == 1) 
+    {
       // muda o estado l?gico do bot?o
       Mouse.press(MOUSE_LEFT);
       variavel = !variavel;
       variavel5 = !variavel5;
     }
-  } else {
+  } 
+  else 
+  {
     variavel = 1;
   }
-  if (variavel2 == 0 || variavel6 == 0) {
+  if (variavel2 == 0 || variavel6 == 0) 
+  {
     variavel5 = 1;
   }
-  if (variavel2 == 1 && variavel5 == 1 && variavel6 == 1) {
+  if (variavel2 == 1 && variavel5 == 1 && variavel6 == 1) 
+  {
     Mouse.release(MOUSE_LEFT);
   }
   //Serial.println(encoderForWhell());
 }
-int encoder1() {
+
+int encoder1() 
+{
   currentStateCLK1 = digitalRead(CLK1);
-  if (currentStateCLK1 != lastStateCLK1  && currentStateCLK1 == 1) {
+  if (currentStateCLK1 != lastStateCLK1  && currentStateCLK1 == 1) 
+  {
     if (digitalRead(DT1) != currentStateCLK1) {
       counter1--;
-    } else {
+    } 
+    else 
+    {
       counter1++;
     }
   }
   lastStateCLK1 = currentStateCLK1;
-  if ((counter1 > 20000) || (counter1 < -20000)) {
+  if ((counter1 > 20000) || (counter1 < -20000)) 
+  {
     counter1 = 0;
   }
   return counter1;
 }
 
-int encoderForWhell() {
+int encoderForWhell() 
+{
   currentStateCLK3 = digitalRead(CLK3);
 
   if (currentStateCLK3 != lastStateCLK3  && currentStateCLK3 == 1) {
@@ -213,7 +249,8 @@ int encoderForWhell() {
 }
 
 
-int encoder2() {
+int encoder2() 
+{
   currentStateCLK2 = digitalRead(CLK2);
   
   if (currentStateCLK2 != lastStateCLK2  && currentStateCLK2 == 1) {
@@ -231,25 +268,34 @@ int encoder2() {
   }
   return counter2;
 }
-void movimentoMouse() {
+
+void movimentoMouse() 
+{
   float  xDistance = 0;
   float  yDistance = 0;
 
   atualX = encoder2();
   atualY = encoder1();
 
-  if (atualX != ultimoX) {
-    if ((atualX - ultimoX) >= 1) {
+  if (atualX != ultimoX) 
+  {
+    if ((atualX - ultimoX) >= 1) 
+    {
       xDistance = xDistance + (MOVIMENTO * range);
-    } else {
+    } else 
+    {
       xDistance = xDistance - (MOVIMENTO * range );
     }
     ultimoX = atualX;
   }
-  if (atualY != ultimoY) {
-    if ((atualY - ultimoY) >= 1) {
+  if (atualY != ultimoY) 
+  {
+    if ((atualY - ultimoY) >= 1) 
+    {
       yDistance = yDistance - (MOVIMENTO * range);
-    } else {
+    }
+    else 
+    {
       yDistance = yDistance + (MOVIMENTO * range);
     }
     ultimoY = atualY;
